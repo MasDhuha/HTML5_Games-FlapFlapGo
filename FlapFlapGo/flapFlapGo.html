@@ -1,0 +1,1105 @@
+<!-- Author: Matteo Rosa (DaiEnkai)
+     Version: 2.3.0
+     GitHub account: https://github.com/DaiEnkai -->
+
+
+<!DOCTYPE html>
+
+<!-- ///CREDITS///
+     - backgrounds -
+fFG_bg0: based on "swamp" by by Dylan Squires (http://opengameart.org/content/several-scrolling-backgrounds-and-layerable-runners)
+fFG_bg1: based on "city day" by Azoris (http://opengameart.org/content/nine-cartoon-backdrops)
+fFG_bg2: based on "jungle night" by Azoris (http://opengameart.org/content/nine-cartoon-backdrops)
+fFG_bg3: based on "forest-background" by Julien (© 2012-2013 Julien Jorge <julien.jorge@stuff-o-matic.com>) (http://opengameart.org/content/large-forest-background)
+fFG_bg4: "cloud_scene_black" by BytesizedBear (http://opengameart.org/content/cartoony-cloud-images)
+fFG_bg5: "city_backgrounds_night" by Alucard (http://opengameart.org/content/city-background-repetitive-3)
+fFG_bg6: based on "desert_BG" by Dylan Squires (http://opengameart.org/content/several-scrolling-backgrounds-and-layerable-runners)
+fFG_bg7: based on "city sunset" by Azoris (http://opengameart.org/content/nine-cartoon-backdrops)
+fFG_bg8: based on "snow x mas moon 2" by pechvogel (http://opengameart.org/content/winter-background-parexel-scrolling)
+fFG_bg9: based on "underwater tileable" by Scribe (http://opengameart.org/content/underwater-scene-loopable) and "FreeArt_TreasureChest" by SpriteAttack (http://opengameart.org/content/treasure-chests)
+fFG_bg10: based on "jungle day" by Azoris (http://opengameart.org/content/nine-cartoon-backdrops)
+fFG_bg11: based on "city night" by Azoris (http://opengameart.org/content/nine-cartoon-backdrops)
+fFG_bg12: based on "highwayz" and "highwayz2" by MindChamber (http://opengameart.org/content/red-baron-backgrounds)
+     - bgMusic -
+fFG_bgMusic0: "Fresh Air" by James Calocerinos (http://indiegamemusic.com/viewartist.php?id=1077)
+fFG_bgMusic1: "Dynamic Daydreams" by David McKee (ViRiX Dreamcore) virixcore.net (http://opengameart.org/content/upbeat-visual-novel-music)
+fFG_bgMusic2: "Battle Line v1_1" by FoxSynergy (http://opengameart.org/content/battle-line)
+fFG_bgMusic3: "dragons village" by Aeitia (http://opengameart.org/content/dragons-village-dungeon-piky-coast-and-on-the-right-side)
+fFG_bgMusic4: "Clearside - Siste Viator" by Clearside http://www.clearsidemusic.com (http://opengameart.org/content/music-dark-electronicrocksci-fi-rock-clearside-siste-viator)
+fFG_bgMusic5: "core_175bpm" by p0ss (http://opengameart.org/content/core-music-futuristic)
+fFG_bgMusic6: "Zero Cool 2" by Macro (http://opengameart.org/content/zero-cool)
+     - menuMusic -
+fFG_menuMusic0: "Shoal Swing" by James Calocerinos (http://indiegamemusic.com/viewartist.php?id=1077)
+fFG_menuMusic1: "DownTempo Avenue" by David McKee (ViRiX Dreamcore) virixcore.net (http://opengameart.org/content/upbeat-visual-novel-music)
+fFG_menuMusic2: "rightside" by Aeitia (http://opengameart.org/content/dragons-village-dungeon-piky-coast-and-on-the-right-side)
+fFG_menuMusic3: "coast" by Aeitia (http://opengameart.org/content/dragons-village-dungeon-piky-coast-and-on-the-right-side)
+fFG_menuMusic4: "Zero Cool 2 B" by Macro (http://opengameart.org/content/zero-cool)
+     - other sounds -
+shine: "completetask_0" by Brandon Morris (http://opengameart.org/content/completion-sound)
+sbam: "hits (1)" by CGEffex http://freesound.org/people/CGEffex/sounds/98341/ (http://opengameart.org/content/punch-slap-n-kick)
+lifeSound: "jump9" by Damaged Panda (http://opengameart.org/content/100-plus-game-sound-effects-wavoggm4a) -->
+
+<html>
+     <head>
+          <meta charset="utf-8"/>
+          <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+          <link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet">
+
+          <title id="title">Flap Flap Go</title>
+          <link rel="icon" href="https://comiczen.erpnext.com/files/mQbe_v2.png">
+          <link rel="stylesheet" href="https://comiczen.erpnext.com/files/flapFlapGo-styleSheet.css" type="text/css"></link>
+
+          <script type="text/javascript"
+               src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js">
+          </script>
+     </head>
+
+     <body onload="startGame()">
+          <div id="controlDiv">
+               <div id="controls">
+                    <span>Controls</span>
+               </div>
+               <div id="controlsIcons">
+                    <img class="inputIcon" src="https://comiczen.erpnext.com/files/keyboardIcon.png" alt="keyboard" onclick="setInput(this);">
+                    <img class="inputIcon" src="https://comiczen.erpnext.com/files/buttonIcon.png" alt="button" onclick="setInput(this);">
+                    <img class="inputIcon" src="https://comiczen.erpnext.com/files/touchIcon.png" alt="touch" onclick="setInput(this);">
+               </div>
+          </div>
+
+          <div id="gameArea">
+               <table id="tableAchivements">
+                    <tr>
+                         <td class="achivement"><span class="tooltipAchivement"><u>Not Bad</u><br/><br/>????????????</span></td>
+                         <td class="achivement"><span class="tooltipAchivement"><u>I Am Very Versatile!</u><br/><br/>????????????</span></td>
+                         <td class="achivement"><span class="tooltipAchivement"><u>Up...Down...Up...Down...</u><br/><br/>????????????</span></td>
+                         <td class="achivement"><span class="tooltipAchivement"><u>Heaven & Hell</u><br/><br/>????????????</span></td>
+                         <td class="achivement"><span class="tooltipAchivement"><u>You Are Improving!</u><br/><br/>????????????</span></td>
+                         <td class="achivement"><span class="tooltipAchivement"><u>Who Cares Of The Fuel!</u><br/><br/>????????????</span></td>
+                         <td class="achivement"><span class="tooltipAchivement"><u>Death Doesn't Scare Me</u><br/><br/>????????????</span></td>
+                         <td class="achivement"><span class="tooltipAchivement"><u>Health First!</u><br/><br/>????????????</span></td>
+                         <td class="achivement"><span class="tooltipAchivement"><u>Closer, Closer...</u><br/><br/>????????????</span></td>
+                         <td class="achivement"><span class="tooltipAchivement"><u>Plus Ultra!!!</u><br/><br/>????????????</span></td>
+                         <td class="achivement"><span class="tooltipAchivement"><u>I Don't Need Your Help</u><br/><br/>????????????</span></td>
+                         <td class="achivement"><span class="tooltipAchivement"><u>Like A Pro!!</u><br/><br/>????????????</span></td>
+                    </tr>
+               </table>
+               <div id="button">
+                    <button title="Accelerate" onmousedown="accelerate(-0.2);" onmouseup="accelerate(0.1);" ontouchstart="accelerate(-0.2);" ontouchend="accelerate(0.1);">
+                         <img id="accelerateButton" src="https://comiczen.erpnext.com/files/button.png" alt="ACCELERATE">
+                    </button>
+               </div>
+          </div>
+
+
+          <!-- modal box -->
+          <div id="achivementModal" class="modal">
+               <div class="modal-content">
+                    <div class="modal-header">
+                         <span class="close" onclick="closeModal();">&times;</span>
+                         <h2></h2>
+                    </div>
+                    <div class="modal-body">
+                         <table id="modal-body-table"></table>
+                    </div>
+                    <div class="modal-footer"></div>
+               </div>
+          </div>
+          <!-- modal box for images -->
+          <div id="imgModal" class="modal">
+               <span class="closeImg" onclick="$('#imgModal').css('display', 'none')">&times;</span>
+               <img class="modal-content-img" id="modalImg">
+               <div id="caption"></div>
+          </div>
+
+
+          <!-- content selection -->
+          <div id="contentSelection">
+               <div>
+                    <select class="contents" onchange="showContentTable(this);">
+                         <option value="">Select your contents</option>
+                         <option value="background">Background</option>
+                         <option value="backgroundMusic">Background Music</option>
+                         <option value="menuMusic">Menu Music</option>
+                    </select>
+                    <span id="completed">100%</span>
+               </div>
+
+               <table class="contentTable" id="backgroundContentTable">
+                    <tr><td><input type="checkbox" value="0" name="bg"></td><td><img src="https://comiczen.erpnext.com/files/fFG_bg0.png" alt="Swamp" onclick="showImgModal(this);"></td><td>Swamp</td></tr>
+                    <tr><td><input type="checkbox" value="1" name="bg"></td><td><img src="https://comiczen.erpnext.com/files/fFG_bg1.png" alt="City Day" onclick="showImgModal(this);"></td><td>City Day</td></tr>
+                    <tr><td><input type="checkbox" value="2" name="bg"></td><td><img src="https://comiczen.erpnext.com/files/fFG_bg2.png" alt="Jungle Night" onclick="showImgModal(this);"></td><td>Jungle Night</td></tr>
+                    <tr><td><input type="checkbox" value="3" name="bg"></td><td><img src="https://comiczen.erpnext.com/files/fFG_bg3.png" alt="Forest Background" onclick="showImgModal(this);"></td><td>Forest Background</td></tr>
+                    <tr><td><input type="checkbox" value="4" name="bg"></td><td><img src="https://comiczen.erpnext.com/files/fFG_bg4.png" alt="Cloud Scene Black" onclick="showImgModal(this);"></td><td>Cloud Scene Black</td></tr>
+                    <tr><td><input type="checkbox" value="5" name="bg"></td><td><img src="https://comiczen.erpnext.com/files/fFG_bg5.png" alt="City Background (Night)" onclick="showImgModal(this);"></td><td>City Background (Night)</td></tr>
+                    <tr><td><input type="checkbox" value="6" name="bg"></td><td><img src="https://comiczen.erpnext.com/files/fFG_bg6.png" alt="Desert Background" onclick="showImgModal(this);"></td><td>Desert Background</td></tr>
+                    <tr><td><input type="checkbox" value="7" name="bg"></td><td><img src="https://comiczen.erpnext.com/files/fFG_bg7.png" alt="City Sunset" onclick="showImgModal(this);"></td><td>City Sunset</td></tr>
+                    <tr><td><input type="checkbox" value="8" name="bg"></td><td><img src="https://comiczen.erpnext.com/files/fFG_bg8.png" alt="Snow XMas Moon" onclick="showImgModal(this);"></td><td>Snow XMas Moon</td></tr>
+                    <tr><td><input type="checkbox" value="9" name="bg"></td><td><img src="https://comiczen.erpnext.com/files/fFG_bg9.png" alt="Underwater" onclick="showImgModal(this);"></td><td>Underwater</td></tr>
+                    <tr><td><input type="checkbox" value="10" name="bg"></td><td><img src="https://comiczen.erpnext.com/files/fFG_bg10.png" alt="Jungle Day" onclick="showImgModal(this);"></td><td>Jungle Day</td></tr>
+                    <tr><td><input type="checkbox" value="11" name="bg"></td><td><img src="https://comiczen.erpnext.com/files/fFG_bg11.png" alt="City Night" onclick="showImgModal(this);"></td><td>City Night</td></tr>
+                    <tr><td><input type="checkbox" value="12" name="bg"></td><td><img src="https://comiczen.erpnext.com/files/fFG_bg12.png" alt="Highways" onclick="showImgModal(this);"></td><td>Highways</td></tr>
+               </table>
+               <table class="contentTable" id="backgroundMusicContentTable">
+                    <tr><td><input type="checkbox" value="0" name="bgMusic"></td><td><audio controls="controls" <source src="https://comiczen.erpnext.com/files/fFG_bgMusic0.mp3" type="video/mp3" /></audio></td><td>Fresh Air</td></tr>
+                    <tr><td><input type="checkbox" value="1" name="bgMusic"></td><td><audio controls="controls" <source src="https://comiczen.erpnext.com/files/fFG_bgMusic1.mp3" type="video/mp3" /></audio></td><td>Dynamic Daydreams</td></tr>
+                    <tr><td><input type="checkbox" value="2" name="bgMusic"></td><td><audio controls="controls" <source src="https://comiczen.erpnext.com/files/fFG_bgMusic2.mp3" type="video/mp3" /></audio></td><td>Battle Line v1_1</td></tr>
+                    <tr><td><input type="checkbox" value="3" name="bgMusic"></td><td><audio controls="controls" <source src="https://comiczen.erpnext.com/files/fFG_bgMusic3.mp3" type="video/mp3" /></audio></td><td>Dragons Village</td></tr>
+                    <tr><td><input type="checkbox" value="4" name="bgMusic"></td><td><audio controls="controls" <source src="https://comiczen.erpnext.com/files/fFG_bgMusic4.mp3" type="video/mp3" /></audio></td><td>Clearside-Siste Viator</td></tr>
+                    <tr><td><input type="checkbox" value="5" name="bgMusic"></td><td><audio controls="controls" <source src="https://comiczen.erpnext.com/files/fFG_bgMusic5.mp3" type="video/mp3" /></audio></td><td>Core_175bpm</td></tr>
+                    <tr><td><input type="checkbox" value="6" name="bgMusic"></td><td><audio controls="controls" <source src="https://comiczen.erpnext.com/files/fFG_bgMusic6.mp3" type="video/mp3" /></audio></td><td>Zero Cool 2</td></tr>
+               </table>
+               <table class="contentTable" id="menuMusicContentTable">
+                    <tr><td><input type="checkbox" value="0" name="menuMusic"></td><td><audio controls="controls" <source src="https://comiczen.erpnext.com/files/fFG_menuMusic0.mp3" type="video/mp3" /></audio></td><td>Shoal Swing</td></tr>
+                    <tr><td><input type="checkbox" value="1" name="menuMusic"></td><td><audio controls="controls" <source src="https://comiczen.erpnext.com/files/fFG_menuMusic1.mp3" type="video/mp3" /></audio></td><td>DownTempo Avenue</td></tr>
+                    <tr><td><input type="checkbox" value="2" name="menuMusic"></td><td><audio controls="controls" <source src="https://comiczen.erpnext.com/files/fFG_menuMusic2.mp3" type="video/mp3" /></audio></td><td>Rightside</td></tr>
+                    <tr><td><input type="checkbox" value="3" name="menuMusic"></td><td><audio controls="controls" <source src="https://comiczen.erpnext.com/files/fFG_menuMusic3.mp3" type="video/mp3" /></audio></td><td>Coast</td></tr>
+                    <tr><td><input type="checkbox" value="4" name="menuMusic"></td><td><audio controls="controls" <source src="https://comiczen.erpnext.com/files/fFG_menuMusic4.mp3" type="video/mp3" /></audio></td><td>Zero Cool 2 B</td></tr>
+               </table>
+          </div>
+
+          <!-- loader -->
+          <div id="overlay">
+               <div id="loader"></div>
+               <img src="https://comiczen.erpnext.com/files/mQbe_v2.png" alt="mQbe_v2">
+          </div>
+
+
+
+          <script>
+               var myGamePiece;
+               var myDownFlame, flameOpacity = 1;
+               var myObstacles;
+               var myTitle;
+               var myPlay;
+               var myScore, myRecord;
+               var isRecord;
+               var myBackground;
+               var myRetry;
+               var mySound, myMusic, myFlameSound, myRecordSound, myMenuMusic, myAchivementSound, myModalSound, myGameCompletedSound, mySbamSound, myShineSound, myLifeSound, myHitSound;
+               var obstacleSpeed;
+               var started;
+               var myGameoverLayer;
+               var isGameOver;
+               var firstPlay = true;
+               var achivementsObtained;
+               var allAchivements, gameCompleted;
+               var backgrounds, bgMusics, menuMusics;
+               var randomBg, randomBgMusic, randomMenuMusic;
+               var wallToTouch, wallsCounter;
+               var modalsToShow;
+               var checkboxesSaved;
+               var lives, myLives, extraLifeAppeared, extraLifeSteps = 1, extraLifeStepsCounter;
+               var controlsUsed, deathOnWalls, flameTime, survived, lifeCounter, timeOnWalls, lifeCollected, untouched;
+
+               function startGame() {
+                    if (firstPlay) {
+                         achivementsObtained = (JSON.parse(localStorage.getItem("flapFlapGoAchivements")) || new Array(12));
+                         setAchivements();
+                         allAchivements = (localStorage.getItem('flapFlapGoAllAchivements') || false);
+
+                         controlsUsed = (JSON.parse(localStorage.getItem("flapFlapGoControlsUsed")) || new Array(3));
+                         deathOnWalls = (JSON.parse(localStorage.getItem("flapFlapGoDeathOnWalls")) || new Array(2));
+                         flameTime = parseFloat(localStorage.getItem('flapFlapGoFlameTime') || 0);
+                         lifeCounter = (localStorage.getItem('flapFlapGoLifeCounter') || 0);
+                         timeOnWalls = parseFloat(localStorage.getItem('flapFlapGoTimeOnWalls') || 0);
+                    }
+
+                    if (allAchivements) {
+                         if (firstPlay) {
+                              // retrieve all checkboxes checked or create an array with all true value
+                              checkboxesSaved = (JSON.parse(localStorage.getItem("flapFlapGoCheckboxesSaved")) || new Array($('#backgroundContentTable tr').length + $('#backgroundMusicContentTable tr').length + $('#menuMusicContentTable tr').length).fill(true));
+                              checkCheckboxes();
+                              $('#contentSelection').show();
+                         }
+
+                         backgrounds = [];
+                         $('#backgroundContentTable').find('input:checked').each(function() {backgrounds.push(this.value);});
+                         bgMusics = [];
+                         $('#backgroundMusicContentTable').find('input:checked').each(function() {bgMusics.push(this.value);});
+                         menuMusics = [];
+                         $('#menuMusicContentTable').find('input:checked').each(function() {menuMusics.push(this.value);});
+                    } else {
+                         backgrounds = (JSON.parse(localStorage.getItem("flapFlapGoBackgrounds")) || [0]);
+                         bgMusics = (JSON.parse(localStorage.getItem("flapFlapGoBgMusics")) || [0]);
+                         menuMusics = (JSON.parse(localStorage.getItem("flapFlapGoMenuMusics")) || [0]);
+                    }
+                    // choose random background, background music and menu music from the respective arrays
+                    randomBg = backgrounds[Math.floor(Math.random() * backgrounds.length)];
+                    if (allAchivements) {
+                         randomBgMusic = bgMusics[Math.floor(Math.random() * bgMusics.length)];
+                         randomMenuMusic = menuMusics[Math.floor(Math.random() * menuMusics.length)];
+                    } else {
+                         if (randomBg == 12) {randomBgMusic = 6; randomMenuMusic = 4;}
+                         else {
+                              randomBgMusic = bgMusics[Math.floor(Math.random() * bgMusics.length)];
+                              randomMenuMusic = menuMusics[Math.floor(Math.random() * menuMusics.length)];
+                         }
+                    }
+
+                    wallToTouch = 0;
+                    wallsCounter = 0;
+                    lives = 3;
+                    extraLifeAppeared = false;
+                    survived = false;
+                    lifeCollected = false;
+                    untouched = true;
+                    modalsToShow = [];
+
+                    myObstacles = [];
+                    isRecord = false;
+                    obstacleSpeed = 3;
+                    started = false;
+                    isGameOver = false;
+                    myGamePiece = new component(35, 35, "https://comiczen.erpnext.com/files/mQbe_v2.png", 10, 120, "withFading", 1);
+                    myDownFlame = new component(37.13, 41.39, "https://comiczen.erpnext.com/files/flameLayerDown.png", 247, 142.23, "withFading", 0);
+                    myTitle = new component(224, 52, "https://comiczen.erpnext.com/files/flapFlapGoTitle.png", 128, 50, "withFading", 1);
+                    myPlay = new component(90, 31.5, "https://comiczen.erpnext.com/files/greenPlay.png", 190, 120, "image");
+                    myScore = new component("15px", "Orbitron", "#000", 330, 30, "text");
+                    myRecord = new component("15px", "Orbitron", "#000", 10, 30, "text");
+                    myLives = []; for (var i = 0; i < 3; i++) {myLives.push(new component(32, 32, "https://comiczen.erpnext.com/files/life.png", 182 + 42 * i, 5, "withFading", 1));}
+                    if (randomBg != null) {myBackground = new component(1080, 270, "https://comiczen.erpnext.com/files/fFG_bg" + randomBg + ".png", 0, 0, "background");}
+                    else {myBackground = new component(1080, 270, "https://comiczen.erpnext.com/files/fFG_bg0.png", 0, 0, "withFading", 0);}      // no background
+                    mySound = new sound("https://comiczen.erpnext.com/files/fail.mp3");
+                    if (randomBgMusic != null) {myMusic = new sound("https://comiczen.erpnext.com/files/fFG_bgMusic" + randomBgMusic + ".mp3");}
+                    else {myMusic = new sound("https://comiczen.erpnext.com/files/fFG_bgMusic0.mp3"); myMusic.sound.volume = 0;}      // no music
+                    myFlameSound = new sound("https://comiczen.erpnext.com/files/flameSound.mp3");
+                    myRecordSound = new sound("https://comiczen.erpnext.com/files/record.mp3");
+                    if (randomMenuMusic != null) {myMenuMusic = new sound("https://comiczen.erpnext.com/files/fFG_menuMusic" + randomMenuMusic + ".mp3");}
+                    else {myMenuMusic = new sound("https://comiczen.erpnext.com/files/fFG_menuMusic0.mp3"); myMenuMusic.sound.volume = 0;}      // no menu music
+                    myAchivementSound = new sound("https://comiczen.erpnext.com/files/achivementSound.mp3");
+                    myModalSound = new sound("https://comiczen.erpnext.com/files/modalSound.mp3");
+                    myLifeSound = new sound("https://comiczen.erpnext.com/files/lifeSound.mp3");
+                    myHitSound = new sound("https://comiczen.erpnext.com/files/hitSound.mp3");
+                    myFlameSound.sound.volume = 0.4;
+                    myAchivementSound.sound.volume = 0.6;
+                    myLifeSound.sound.volume = 0.4;
+
+                    myGameArea.start();
+               }
+
+               var myGameArea = {
+                    canvas : document.createElement("canvas"),
+
+                    start : function() {
+                         this.canvas.width = 480;
+                         this.canvas.height = 270;
+                         this.context = this.canvas.getContext("2d");
+                         $(this.canvas).insertBefore( $('#tableAchivements') );
+
+                         this.frameNo = 0;
+                         this.points = 0;
+                         this.record = (localStorage.getItem("flapFlapGoRecord") || 0);
+                         // update the display 50 times per second, which is much like frames in a movie
+                         this.interval = setInterval(updateGameArea, 20);
+
+                         window.addEventListener('keydown', keydownFunction);
+                         window.addEventListener('keyup', keyupFunction);
+
+                         this.canvas.addEventListener('click', go);
+
+                         if (firstPlay) {
+                              myMenuMusic.sound.setAttribute('loop', '');
+                              myMenuMusic.play();
+                         }
+                    },
+
+                    clear : function() {
+                         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                    },
+
+                    stop : function() {
+                         clearInterval(this.interval);
+                    }
+               }
+
+               function go() {
+                    started = true;
+                    extraLifeStepsCounter = myGameArea.canvas.height / 6;
+                    myGameArea.canvas.removeEventListener('click', go);
+                    myMenuMusic.stop();
+                    stopContentTableRunningAudio();
+
+                    fadeOutInterval = setInterval(fadeOut, 6);
+
+                    myMusic.sound.setAttribute('loop', '');
+                    myMusic.play();
+               }
+
+               function fadeOut() {
+                    if (myTitle.opacity > 0) {
+                         myTitle.x += 4;
+                         myTitle.opacity = parseFloat(myTitle.opacity - 0.01).toFixed(2);
+                    } else {
+                         clearInterval(fadeOutInterval);
+                    }
+               }
+
+               function fadeIn() {
+                    if (myRetry.x > 280) {
+                         myRetry.x -= 1;
+                         myRetry.opacity += 0.01;
+                    } else {
+                         clearInterval(fadeInInterval);
+                         myGameArea.canvas.addEventListener('click', reload);
+                         myGameArea.stop();
+
+                         // if new achivements have been obtained in the current play
+                         if (modalsToShow.length > 0) {
+                              currentModalToShow = 0;
+                              modalsToShow.sort(function(a, b) {return a.numAchivement - b.numAchivement;});
+                              showAllModals();
+                         }
+                    }
+               }
+
+
+               function everyinterval(n) {
+                   if (myGameArea.frameNo != 0 && myGameArea.frameNo % n == 0) {return true;}
+                   return false;
+               }
+
+
+               function component(width, height, color, x, y, type, opacity) {
+                   this.width = width;
+                   this.height = height;
+                   this.speedX = 0;
+                   this.speedY = 0;
+                   this.x = x;
+                   this.y = y;
+                   this.type = type;
+                   this.gravity = 0.05;
+                   this.gravitySpeed = 0;
+
+                    if (type == "image" || type == "background" || type == "withFading") {
+                        this.image = new Image();
+                        this.image.src = color;
+                    }
+
+                    if (type == 'text') {
+                         if (randomBg != 2 && randomBg != 4 && randomBg != 11) {this.color = color;}
+                         else {this.color = '#fff';}
+                    }
+
+                    if (type == 'withFading') {
+                         this.opacity = opacity;
+                    }
+
+                    this.update = function() {
+                         ctx = myGameArea.context;
+
+                         if (this.type == "text") {
+                              ctx.font = this.width + " " + this.height;
+                              ctx.fillStyle = this.color;
+                              ctx.fillText(this.text, this.x, this.y);
+                         } else if (type == "image" || type == "background") {
+                              ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
+                              // add the background-image twice, placing the second image immediately after the first image
+                              if (type == "background") {
+                                   ctx.drawImage(this.image, this.x + this.width, this.y, this.width, this.height);
+                              }
+                         } else if (type == "withFading") {
+                              ctx.save();
+                              ctx.globalAlpha = this.opacity;
+                              ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
+                              ctx.restore();
+                         } else {
+                              ctx.fillStyle = color;
+                              ctx.fillRect(this.x, this.y, this.width, this.height);
+                         }
+                    }
+
+                    this.newPos = function() {
+                         this.x += this.speedX;
+                         // check if the x position of the background-component has reach the end of the image. If it has, set the x position of the background-component to 0
+                         if (this.type == "background") {
+                              if (this.x == -(this.width)) {this.x = 0;}
+                         // for non-background components
+                         } else {
+                              this.gravitySpeed += this.gravity;
+                              this.y += this.speedY + this.gravitySpeed;
+                              this.hitWall();
+                         }
+                    }
+
+                    this.hitWall = function() {
+                         var rockbottom = myGameArea.canvas.height - this.height;
+                         if (rockbottom && this.y > rockbottom) {
+                              this.y = rockbottom;
+                              this.gravitySpeed = 0;
+                              if (started && !achivementsObtained[2]) {checkWalls(1);}
+
+                              if (started) {increaseTimeOnWalls();}
+                         }
+                         if (this.y < 0) {
+                              this.y = 0;
+                              this.gravitySpeed = 0;
+                              if (started && !achivementsObtained[2]) {checkWalls(0);}
+
+                              if (started) {increaseTimeOnWalls();}
+                         }
+                    }
+
+                    // check if the component crashes with another component
+                    this.crashWith = function(otherobj) {
+                         var myleft = this.x;
+                         var myright = this.x + (this.width);
+                         var mytop = this.y;
+                         var mybottom = this.y + (this.height);
+
+                         var otherleft = otherobj.x;
+                         var otherright = otherobj.x + (otherobj.width);
+                         var othertop = otherobj.y;
+                         var otherbottom = otherobj.y + (otherobj.height);
+
+                         // survived for 1xp
+                         if ((mybottom == othertop - 1) || (mytop == otherbottom + 1)) {survived = true;}
+
+                         var crash = true;
+                         if ((mybottom < othertop) || (mytop > otherbottom) || (myright < otherleft) || (myleft > otherright)) {
+                              crash = false;
+                         }
+                         return crash;
+                    }
+               }
+
+
+               function updateGameArea() {
+                    var x, height, gap, minHeight, maxHeight, minGap, maxGap;
+                    var minLifeY, maxLifeY, lifeY;
+
+                    if (isGameOver) {
+                         myGameArea.clear();
+                         myBackground.update();
+                         if (extraLifeAppeared) {myExtraLife.update();}
+                         for (var i = 0; i < myObstacles.length; i++) {
+                              myObstacles[i].update();
+                         }
+                         myGamePiece.update();
+                         myGameoverLayer.update();
+                         myRetry.update();
+                         myScore.update();
+                         myRecord.update();
+                         for (var i = 0; i < myLives.length; i++) {myLives[i].update();}
+                         return;
+                    }
+
+                    for (var i = 0; i < myObstacles.length; i++) {
+                         if (myGamePiece.crashWith(myObstacles[i])) {
+                              if (myGamePiece.opacity == 1) {
+                                   untouched = false;
+                                   lives--;
+                                   myLives[lives].opacity = 0.4;
+                                   myGamePiece.opacity = 0.5;
+                                   flameOpacity = 0.5;
+                                   setTimeout(function() {myGamePiece.opacity = 1; flameOpacity = 1;}, 1000);
+                                   if (lives > 0) {myHitSound.play();}
+
+                                   if (lives == 0) {
+                                        isGameOver = true;
+
+                                        myGamePiece.opacity = 1;
+                                        if (myGamePiece.image) {myGameoverLayer = new component(57.42, 61.82, "https://comiczen.erpnext.com/files/mQbeBrokenLayer.png", myGamePiece.x - 12.478, (myGamePiece.y + myGamePiece.height) - 61.82, "image");}
+                                        mySound.play();
+                                        myMusic.stop();
+                                        myFlameSound.stop();
+                                        stopContentTableRunningAudio();
+
+                                        checkControls($('img.inputIcon').index($('img.inputIcon[data-input="selected"]')));
+                                        if (myGamePiece.y == 0) {checkDeathOnWalls(0);}
+                                        if (myGamePiece.y == myGameArea.canvas.height - myGamePiece.height) {checkDeathOnWalls(1);}
+
+                                        var retryOffset = myGameArea.canvas.height / 2 - 21;
+                                        myRetry = new component(140, 42, "https://comiczen.erpnext.com/files/greenRetry.png", myGameArea.canvas.width, 50, "withFading", 0);
+                                        fadeInInterval = setInterval(fadeIn, 10);
+                                   }
+                              }
+                         }
+                    }
+                    // remove useless obstacles
+                    if (myObstacles[0] && myObstacles[0].x < -myObstacles[0].width) {
+                         myObstacles.splice(0, 1);
+                         // one point for each couple of obstacles
+                         if (myObstacles.length % 2 == 0 && myGamePiece.opacity == 1) {
+                              myGameArea.points++;
+                              if (myGameArea.points == 50 || myGameArea.points == 100 || myGameArea.points == 200) {checkAchivementPoints(myGameArea.points);}
+                              // 1/3 chance of gain a life every 10 points
+                              if (myGameArea.points && myGameArea.points % 10 == 0) {
+                                   var chance = Math.floor(Math.random() * 3);
+                                   if (chance == 2) {
+                                        minLifeY = 45;
+                                        maxLifeY = 195;
+                                        lifeY = Math.floor(Math.random() * (maxLifeY - minLifeY + 1) + minLifeY);
+                                        myExtraLife = new component(30, 30, "https://comiczen.erpnext.com/files/extraLife.png", myGameArea.canvas.width + 20, lifeY, "image");
+                                        extraLifeAppeared = true;
+                                   }
+                              }
+                              // survived for 1px
+                              if (survived && !achivementsObtained[6]) {
+                                   achivementsObtained[6] = true; localStorage.setItem('flapFlapGoAchivements', JSON.stringify(achivementsObtained)); setAchivements(7);
+                                   backgrounds.push(7); localStorage.setItem('flapFlapGoBackgrounds', JSON.stringify(backgrounds));
+                                   bgMusics.push(2); localStorage.setItem('flapFlapGoBgMusics', JSON.stringify(bgMusics));
+                                   menuMusics.push(3); localStorage.setItem('flapFlapGoMenuMusics', JSON.stringify(menuMusics));
+                                   var achivementModal7 = new modal(7, 7, 2, 3); modalsToShow.push(achivementModal7);
+                              }
+                         }
+                    }
+
+                    // skip the following instructions if there is a crash
+                    if (isGameOver) {return;}
+
+                    myGameArea.clear();
+
+                    if (started) {
+                         // update the background before updating other components to make sure the other components are dispalyed on top of the background
+                         myBackground.speedX = -1;
+                         myBackground.newPos();
+                         myBackground.update();
+                         if (extraLifeAppeared) {
+                              myExtraLife.x -= 2;
+                              myExtraLife.y += extraLifeSteps;
+                              // reverse the direction and restore the counter
+                              if (--extraLifeStepsCounter == 0) {
+                                   extraLifeSteps = -extraLifeSteps;
+                                   extraLifeStepsCounter = myGameArea.canvas.height / 6;
+                              }
+                              myExtraLife.update();
+
+                              if (myGamePiece.crashWith(myExtraLife)) {
+                                   extraLifeAppeared = false;
+                                   if (lives < 3) {
+                                        myLives[lives].opacity = 1;
+                                        lives++;
+                                   }
+                                   else {myGameArea.points += 5;}
+                                   myLifeSound.play();
+
+                                   lifeCounter++; localStorage.setItem('flapFlapGoLifeCounter', lifeCounter);
+                                   if (lifeCounter == 100) {
+                                        achivementsObtained[7] = true; localStorage.setItem('flapFlapGoAchivements', JSON.stringify(achivementsObtained)); setAchivements(8);
+                                        backgrounds.push(8); localStorage.setItem('flapFlapGoBackgrounds', JSON.stringify(backgrounds));
+                                        bgMusics.push(3); localStorage.setItem('flapFlapGoBgMusics', JSON.stringify(bgMusics));
+                                        var achivementModal8 = new modal(8, 8, 3, null); modalsToShow.push(achivementModal8);
+                                   }
+
+                                   lifeCollected = true;
+                              }
+                         }
+                         // the extra life has disappeared
+                         if (extraLifeAppeared && myExtraLife.x < -myExtraLife.width) {extraLifeAppeared = false;}
+
+                         myGameArea.frameNo += 1;
+                    } else {
+                         myBackground.update();
+                         myPlay.update();
+                    }
+
+
+                    // generate new obstacles
+                    if (myGameArea.frameNo == 1 || everyinterval(100)) {
+                         x = myGameArea.canvas.width;
+                         minHeight = 20;
+                         maxHeight = 200;
+                         height = Math.floor(Math.random() * (maxHeight - minHeight + 1) + minHeight);
+                         minGap = Math.max(55, 70 - Math.floor(myGameArea.points / 10));
+                         maxGap = Math.max(150, 200 - Math.floor(myGameArea.points / 10));
+                         gap = Math.floor(Math.random() * (maxGap - minGap + 1) + minGap);
+                         myObstacles.push(new component(10, height, "#FF8A00", x, 0));
+                         myObstacles.push(new component(10, x - height - gap, "#FF8A00", x, height + gap));
+                    }
+                    for (var i = 0; i < myObstacles.length; i++) {
+                         myObstacles[i].x += -obstacleSpeed;
+                         myObstacles[i].update();
+                    }
+
+
+                    // keyboard
+                    if ($('img.inputIcon[alt="keyboard"]').attr('data-input') == 'selected') {
+                         if (myGameArea.key && myGameArea.key == 32) {accelerate(-0.2);}     //spacebar
+                         else {accelerate(0.1);}
+                    }
+
+
+                    myGamePiece.newPos();
+                    myGamePiece.update();
+
+                    myDownFlame.x = myGamePiece.x - 1;
+                    myDownFlame.y = myGamePiece.y + 23,23;
+                    myDownFlame.update();
+
+                    if (myTitle.opacity > 0) { myTitle.update(); }
+
+                    if (started) {
+                         myScore.text="SCORE: " + myGameArea.points;
+                         myScore.update();
+                         for (var i = 0; i < myLives.length; i++) {myLives[i].update();}
+                    }
+
+                    if (myGameArea.points > myGameArea.record && isRecord == false) {
+                         isRecord = true;
+                         myRecordSound.play();
+                         myRecord.color = '#FAFA09';
+                    }
+                    if (isRecord) {
+                         myRecord.text = "RECORD: " + myGameArea.points;
+                         localStorage.setItem("flapFlapGoRecord", myGameArea.points);
+                    } else {
+                         myRecord.text = "RECORD: " + (localStorage.getItem("flapFlapGoRecord") || 0);
+                    }
+                    myRecord.update();
+               }
+
+
+               // object constructor to handle sound objects
+               function sound(src) {
+                    this.sound = document.createElement("audio");
+                    this.sound.src = src;
+                    this.sound.setAttribute("preload", "auto");
+                    this.sound.setAttribute("controls", "none");
+                    this.sound.style.display = "none";
+                    document.body.appendChild(this.sound);
+                    this.play = function() {
+                         this.sound.play();
+                    }
+                    this.stop = function() {
+                         this.sound.pause();
+                    }
+               }
+
+
+               function accelerate(n) {
+                    if (!isGameOver) {
+                         myGamePiece.gravity = n;
+
+                         if (n < 0) {
+                              myDownFlame.opacity = flameOpacity;
+                              myFlameSound.play();
+
+                              if (started) {increaseFlameTime();}
+                         }
+                         else {
+                              myDownFlame.opacity = 0;
+                              myFlameSound.stop();
+                         }
+                    }
+               }
+
+
+
+               function reload() {
+                    if (isGameOver) {
+                         myGameArea.clear();
+                         myGameArea.canvas.removeEventListener('click', reload);
+                         firstPlay = false;
+                         startGame();
+                         go();
+                    }
+               }
+          </script>
+
+
+          <!-- function for achivements, their modals and content management -->
+          <script type="text/javascript">
+               // Achivements
+
+               var achivementDescriptions = ['Score 50 points','Complete at least a game using each type of controls','Touch alternately the ceiling and the floor for a total of 50 times in a single game','Die touching the ceiling and the floor','Score 100 points',
+                    'Keep the flame activated for a total of 5 minutes','Survive an obstacle after having nearly touched','Collect a total of 100 lives','Touch the walls for a total of 5 minutes','Score 200 points','Score 100 points without collecting any life','Score 100 points without losing any life'];
+
+               function setAchivements(whichAchivement) {
+                    // if whichAchivement has a value
+                    if (whichAchivement) {
+                         $('.achivement:nth-child(' + whichAchivement + ')').css('background-color', '#0f0');
+                         $('.achivement:nth-child(' + whichAchivement + ')').children().css('background-color', '#0f0');
+                         // change achivement's description
+                         $('.achivement:nth-child(' + whichAchivement + ')').children().html(
+                              $('.achivement:nth-child(' + whichAchivement + ')').children().html().replace('????????????', achivementDescriptions[whichAchivement - 1])     );
+                         $('.achivement:nth-child(' + whichAchivement + ')').children().addClass('tooltipAchivementObtained');
+                         myAchivementSound.play();
+
+                         // check if all achivement has been obtained
+                         for (var i = 0; i < achivementsObtained.length; i++) {
+                              if (!achivementsObtained[i]) {return;}
+                         }
+                         allAchivements = true; localStorage.setItem('flapFlapGoAllAchivements', allAchivements);
+                         myGameCompletedSound = new sound("https://comiczen.erpnext.com/files/gameCompletedSound.mp3");
+                         mySbamSound = new sound("https://comiczen.erpnext.com/files/sbam.mp3");
+                         myShineSound = new sound("https://comiczen.erpnext.com/files/shine.mp3");
+                         checkboxesSaved = new Array($('#backgroundContentTable tr').length + $('#backgroundMusicContentTable tr').length + $('#menuMusicContentTable tr').length).fill(true);
+                    // if whichAchivement is null
+                    } else {
+                         for (var i = 0; i < achivementsObtained.length; i++) {
+                              // if the current achivement has been obtained
+                              if (achivementsObtained[i]) {
+                                   $('.achivement:nth-child(' + Number(i+1) + ')').css('background-color', '#0f0');
+                                   $('.achivement:nth-child(' + Number(i+1) + ')').children().css('background-color', '#0f0');
+                                   // change achivement's description
+                                   $('.achivement:nth-child(' + Number(i+1) + ')').children().html(
+                                        $('.achivement:nth-child(' + Number(i+1) + ')').children().html().replace('????????????', achivementDescriptions[i])     );
+                                   $('.achivement:nth-child(' + Number(i+1) + ')').children().addClass('tooltipAchivementObtained');
+                              }
+                         }
+                    }
+               }
+
+               function checkAchivementPoints(points) {
+                    switch (points) {
+                         case 50:
+                              if (!achivementsObtained[0]) {
+                                   achivementsObtained[0] = true; localStorage.setItem('flapFlapGoAchivements', JSON.stringify(achivementsObtained)); setAchivements(1);
+                                   backgrounds.push(1); localStorage.setItem('flapFlapGoBackgrounds', JSON.stringify(backgrounds));
+                                   var achivementModal1 = new modal(1, 1, null, null); modalsToShow.push(achivementModal1);
+                              }
+                              break;
+                         case 100:
+                              if (!achivementsObtained[4]) {
+                                   achivementsObtained[4] = true; localStorage.setItem('flapFlapGoAchivements', JSON.stringify(achivementsObtained)); setAchivements(5);
+                                   backgrounds.push(5); localStorage.setItem('flapFlapGoBackgrounds', JSON.stringify(backgrounds));
+                                   bgMusics.push(1); localStorage.setItem('flapFlapGoBgMusics', JSON.stringify(bgMusics));
+                                   var achivementModal5 = new modal(5, 5, 1, null); modalsToShow.push(achivementModal5);
+                              }
+                              break;
+                         case 200:
+                              if (!achivementsObtained[9]) {
+                                   achivementsObtained[9] = true; localStorage.setItem('flapFlapGoAchivements', JSON.stringify(achivementsObtained)); setAchivements(10);
+                                   backgrounds.push(10); localStorage.setItem('flapFlapGoBackgrounds', JSON.stringify(backgrounds));
+                                   bgMusics.push(4); localStorage.setItem('flapFlapGoBgMusics', JSON.stringify(bgMusics));
+                                   var achivementModal10 = new modal(10, 10, 4, null); modalsToShow.push(achivementModal10);
+                              }
+                              if (!lifeCollected && !achivementsObtained[10]) {
+                                   achivementsObtained[10] = true; localStorage.setItem('flapFlapGoAchivements', JSON.stringify(achivementsObtained)); setAchivements(11);
+                                   backgrounds.push(11); localStorage.setItem('flapFlapGoBackgrounds', JSON.stringify(backgrounds));
+                                   bgMusics.push(5); localStorage.setItem('flapFlapGoBgMusics', JSON.stringify(bgMusics));
+                                   var achivementModal11 = new modal(11, 11, 5, null); modalsToShow.push(achivementModal11);
+                              }
+                              if (untouched && !achivementsObtained[11]) {
+                                   achivementsObtained[11] = true; localStorage.setItem('flapFlapGoAchivements', JSON.stringify(achivementsObtained)); setAchivements(12);
+                                   backgrounds.push(12); localStorage.setItem('flapFlapGoBackgrounds', JSON.stringify(backgrounds));
+                                   bgMusics.push(6); localStorage.setItem('flapFlapGoBgMusics', JSON.stringify(bgMusics));
+                                   menuMusics.push(4); localStorage.setItem('flapFlapGoMenuMusics', JSON.stringify(menuMusics));
+                                   var achivementModal12 = new modal(12, 12, 6, 4); modalsToShow.push(achivementModal12);
+                              }
+                              break;
+                    }
+               }
+
+               function checkWalls(whichWall) {
+                    if (wallToTouch == whichWall) {
+                         wallToTouch = (wallToTouch + 1) % 2;
+                         wallsCounter++;
+                    }
+                    if (!achivementsObtained[2] && wallsCounter == 50) {
+                         achivementsObtained[2] = true; localStorage.setItem('flapFlapGoAchivements', JSON.stringify(achivementsObtained)); setAchivements(3);
+                         backgrounds.push(3); localStorage.setItem('flapFlapGoBackgrounds', JSON.stringify(backgrounds));
+                         menuMusics.push(1); localStorage.setItem('flapFlapGoMenuMusics', JSON.stringify(menuMusics));
+                         var achivementModal3 = new modal(3, 3, null, 1); modalsToShow.push(achivementModal3);
+                    }
+               }
+
+               function checkControls(whichControl) {
+                    if (!controlsUsed[whichControl]) {
+                         controlsUsed[whichControl] = true;
+                         localStorage.setItem('flapFlapGoControlsUsed', JSON.stringify(controlsUsed));
+                         // check if all controls has been used
+                         for (var i = 0; i < controlsUsed.length; i++) {
+                              if (!controlsUsed[i]) {return;}
+                         }
+                         achivementsObtained[1] = true; localStorage.setItem('flapFlapGoAchivements', JSON.stringify(achivementsObtained)); setAchivements(2);
+                         backgrounds.push(2); localStorage.setItem('flapFlapGoBackgrounds', JSON.stringify(backgrounds));
+                         var achivementModal2 = new modal(2, 2, null, null); modalsToShow.push(achivementModal2);
+                    }
+               }
+
+               function checkDeathOnWalls(whichWall) {
+                    if (!deathOnWalls[whichWall]) {
+                         deathOnWalls[whichWall] = true;
+                         localStorage.setItem('flapFlapGoDeathOnWalls', JSON.stringify(deathOnWalls));
+                         // check if the array has all true values
+                         for (var i = 0; i < deathOnWalls.length; i++) {
+                              if (!deathOnWalls[i]) {return;}
+                         }
+                         achivementsObtained[3] = true; localStorage.setItem('flapFlapGoAchivements', JSON.stringify(achivementsObtained)); setAchivements(4);
+                         backgrounds.push(4); localStorage.setItem('flapFlapGoBackgrounds', JSON.stringify(backgrounds));
+                         var achivementModal4 = new modal(4, 4, null, null); modalsToShow.push(achivementModal4);
+                    }
+               }
+
+               function increaseFlameTime() {
+                    // add 20 milliseconds
+                    flameTime = parseFloat((flameTime + 0.02).toFixed(2)); localStorage.setItem('flapFlapGoFlameTime', flameTime);
+                    if (flameTime >= 300 && !achivementsObtained[5]) {
+                         achivementsObtained[5] = true; localStorage.setItem('flapFlapGoAchivements', JSON.stringify(achivementsObtained)); setAchivements(6);
+                         backgrounds.push(6); localStorage.setItem('flapFlapGoBackgrounds', JSON.stringify(backgrounds));
+                         menuMusics.push(2); localStorage.setItem('flapFlapGoMenuMusics', JSON.stringify(menuMusics));
+                         var achivementModal6 = new modal(6, 6, null, 2); modalsToShow.push(achivementModal6);
+                    }
+               }
+
+               function increaseTimeOnWalls() {
+                    // add 20 milliseconds
+                    timeOnWalls = parseFloat((timeOnWalls + 0.02).toFixed(2)); localStorage.setItem('flapFlapGoTimeOnWalls', timeOnWalls);
+                    if (timeOnWalls >= 300 && !achivementsObtained[8]) {
+                         achivementsObtained[8] = true; localStorage.setItem('flapFlapGoAchivements', JSON.stringify(achivementsObtained)); setAchivements(9);
+                         backgrounds.push(9); localStorage.setItem('flapFlapGoBackgrounds', JSON.stringify(backgrounds));
+                         var achivementModal9 = new modal(9, 9, null, null); modalsToShow.push(achivementModal9);
+                    }
+               }
+
+
+
+               // Modals
+
+               var bgNames = ['Swamp', 'City Day', 'Jungle Night', 'Forest Background', 'Cloud Scene Black', 'City Background (Night)', 'Desert Background', 'City Sunset', 'Snow XMas Moon', 'Underwater', 'Jungle Day', 'City Night', 'Highways'];
+               var bgMusicNames = ['Fresh Air', 'Dynamic Daydreams', 'Battle Line v1_1', 'Dragons Village', 'Clearside-Siste Viator', 'Core_175bpm', 'Zero Cool 2'];
+               var menuMusicNames = ['Shoal Swing', 'DownTempo Avenue', 'Rightside', 'Coast', 'Zero Cool 2 B'];
+
+               function modal(numAchivement, newBackground, newBgMusic, newMenuMusic) {
+                    this.numAchivement = numAchivement;
+                    this.newBackground = newBackground;
+                    this.newBgMusic = newBgMusic;
+                    this.newMenuMusic = newMenuMusic;
+
+                    // insert the new contents inside the modal
+                    this.setAchivementModal = function() {
+                         // empty modal-body-table
+                         $('#modal-body-table').html('');
+
+                         $('.modal-header h2').html('Achivement ' + this.numAchivement + ' - You have unlocked:');
+                         if (this.newBackground) {
+                              // add img miniature and name
+                              $('#modal-body-table').append('<tr><td><img src="https://comiczen.erpnext.com/files/fFG_bg' + this.newBackground + '.png" alt="' + bgNames[this.newBackground] + '" id="modalImgPreview" onclick="showImgModal(this);"/></td>     <td><span id="newBgLabel"><b>New Background!</b>&nbsp;&nbsp;&nbsp;</span></td></tr>');
+                              $('#newBgLabel').append($('#modalImgPreview').attr('alt'));
+                         }
+                         if (this.newBgMusic) {
+                              // add bgMusic's track and name
+                              $('#modal-body-table').append('<tr><td><audio id="modalBgMusic" alt="' + bgMusicNames[this.newBgMusic] + '" controls="controls" <source src="https://comiczen.erpnext.com/files/fFG_bgMusic' + this.newBgMusic + '.mp3" type="video/mp3" /></audio></td>     <td><span id="newBgMusicLabel"><b>New Background Music!</b>&nbsp;&nbsp;&nbsp;</span></td></tr>');
+                              $('#newBgMusicLabel').append($('#modalBgMusic').attr('alt'));
+                         }
+                         if (this.newMenuMusic) {
+                              // add menuMusic's track and name
+                              $('#modal-body-table').append('<tr><td><audio id="modalMenuMusic" alt="' + menuMusicNames[this.newMenuMusic] + '" controls="controls" <source src="https://comiczen.erpnext.com/files/fFG_menuMusic' + this.newMenuMusic + '.mp3" type="video/mp3" /></audio></td>     <td><span id="newMenuMusicLabel"><b>New Menu Music!</b>&nbsp;&nbsp;&nbsp;</span></td></tr>');
+                              $('#newMenuMusicLabel').append($('#modalMenuMusic').attr('alt'));
+                         }
+                    }
+                    // show the modal
+                    this.showAchivementModal = function() {
+                         $('#achivementModal').css('display', 'block');
+                         myModalSound.play();
+                    }
+               }
+
+
+               function showAllModals() {
+                    modalsToShow[currentModalToShow].setAchivementModal();
+                    modalsToShow[currentModalToShow].showAchivementModal();
+                    currentModalToShow++;
+               }
+
+               function closeModal() {
+                    $('#achivementModal').css('display', 'none');
+                    // if the gameCompleted-modal has been closed
+                    if (gameCompleted) {
+                         $('#contentSelection').addClass('contentSelectionFirstAppearance');
+                         setTimeout(function() {$('#contentSelection').css('display', 'block');}, 500);
+                         setTimeout(function() {mySbamSound.play();}, 900);
+                         setTimeout(function() {myShineSound.play();}, 2000);
+                         return;
+                    }
+
+                    myModalSound.stop();
+                    if (document.getElementById('modalBgMusic')) {document.getElementById('modalBgMusic').pause();}
+                    if (document.getElementById('modalMenuMusic')) {document.getElementById('modalMenuMusic').pause();}
+                    // show the next achivement modal
+                    if (modalsToShow.length > currentModalToShow) {showAllModals();}
+                    else if (allAchivements) {
+                         showGameCompletedModal();
+                         checkCheckboxes();
+                         gameCompleted = true;
+                    }
+               }
+
+               // close the modal when the user clicks anywhere outside of it
+               window.onclick = function(event) {
+                    if (event.target.id == 'achivementModal') {closeModal();}
+                    if (event.target.id == 'imgModal') {$('#imgModal').css('display', 'none');}
+               }
+
+               // insert the image inside the modal and show it
+               function showImgModal(imgPreview) {
+                    $("#imgModal").css("display", "block");
+                    $("#modalImg").attr("src", imgPreview.src);
+                    $("#caption").html(imgPreview.alt);
+               }
+
+
+               function showGameCompletedModal() {
+                    $('.modal-content').addClass('gameCompleted-modal-content');
+                    $('.modal-header').css('background-color', '#f0cc00');
+                    $('.modal-footer').css('background-color', '#f0cc00');
+                    // empty modal-body-table
+                    $('#modal-body-table').html('');
+                    $('.modal-header h2').html('Congratulations!!!');
+                    $('#modal-body-table').append('<tr><td><p>You have cleared the game and unlocked a new feature!</p></td></tr>');
+
+                    $('#achivementModal').css('display', 'block');
+                    myGameCompletedSound.play();
+               }
+
+
+
+               // Content Management
+
+               function checkCheckboxes() {
+                    var j = 0, k = 0;
+                    for (var i = 0; i < checkboxesSaved.length; i++) {
+                         document.getElementsByClassName('contentTable')[j].getElementsByTagName('input')[k].checked = checkboxesSaved[i];
+                         // if all table's checkboxes have been iterated, change table
+                         if (k == document.getElementsByClassName('contentTable')[j].getElementsByTagName('input').length - 1) {j++; k = 0;}
+                         else {k++;}
+                    }
+               }
+
+               function showContentTable(select) {
+                    stopContentTableRunningAudio();
+                    // change table shown
+                    $('.contentTable').css("display", "none");
+                    if (select.value) {$('#' + select.value + 'ContentTable').css("display", "block");}
+               }
+
+               function stopContentTableRunningAudio() {
+                    $('.contentTable audio').each(function() {this.pause(); this.currentTime = 0;})
+               }
+
+               // audio listening management
+               $('.contentTable audio').on('play', function() {myMenuMusic.stop(); myMusic.stop();})
+               $('.contentTable audio').on('pause', function() {
+                    var allPaused = true;
+                    // check if there is an audio which is still playing
+                    $('.contentTable audio').each(function() {
+                         if (!this.paused) {allPaused = false; return false;}
+                    });
+                    if (allPaused) {
+                         if (!started) {myMenuMusic.play();}
+                         else if (!isGameOver) {myMusic.play();}
+                    }
+               });
+
+               // save what is checked
+               $('.contentTable input:checkbox').on('change', function() {
+                    if (this.name == 'bg') {checkboxesSaved[this.value] = this.checked;}
+                    else if (this.name == 'bgMusic') {checkboxesSaved[Number(this.value) + $('#backgroundContentTable tr').length] = this.checked;}
+                    else if (this.name == 'menuMusic') {checkboxesSaved[Number(this.value) + $('#backgroundContentTable tr').length + $('#backgroundMusicContentTable tr').length] = this.checked;}
+
+                    localStorage.setItem('flapFlapGoCheckboxesSaved', JSON.stringify(checkboxesSaved));
+               })
+          </script>
+
+
+
+
+
+          <script type="text/javascript">
+               // keyboard
+               function keydownFunction(e) {
+                    myGameArea.key = e.keyCode;
+               }
+               function keyupFunction(e) {
+                    myGameArea.key = false;
+               }
+
+               // touch
+               function touchstartFunction(event) {
+                    if (started && !isGameOver) {
+                         event.preventDefault();
+                         if (event.targetTouches.length == 1) {accelerate(-0.2);}
+                    }
+               }
+               function touchendFunction(event) {accelerate(0.1);}
+          </script>
+
+
+
+
+          <script type="text/javascript">
+               // change controls' input, if a different input-icon has been clicked
+               function setInput(input) {
+                    if ($(input).attr('data-input') != "selected") {
+                         $('img.inputIcon[data-input="selected"]').attr('data-input', 'unselected').css('opacity', '0.4');
+                         $(input).attr('data-input', 'selected');
+
+                         $('#controlsIcons').find("[data-input='unselected']").slideToggle('slow');
+
+
+                         if ($(input).attr('alt') == 'button') {
+                              $('#button').show();
+
+                              $('#accelerateButton').on('touchstart', function(event) {event.preventDefault();});
+                         } else {
+                              $('#button').hide();
+                         }
+
+
+                         if ($(input).attr('alt') == 'keyboard') {
+                              window.addEventListener('keydown', keydownFunction);
+                              window.addEventListener('keyup', keyupFunction);
+                         } else {
+                              window.removeEventListener("keydown", keydownFunction);
+                              window.removeEventListener("keyup", keyupFunction);
+                         }
+
+
+                         if ($(input).attr('alt') == 'touch') {
+                              myGameArea.canvas.addEventListener('touchstart', touchstartFunction);
+                              myGameArea.canvas.addEventListener('touchend', touchendFunction);
+                         } else {
+                              myGameArea.canvas.removeEventListener("touchstart", touchstartFunction);
+                              myGameArea.canvas.removeEventListener('touchend', touchendFunction);
+                         }
+                    }
+               }
+
+
+
+               // show/hide input icons
+               $('#controls').mouseenter( function() {
+                    $('#controlsIcons').find("[data-input='unselected']").stop(true, true).slideDown('slow');
+               });
+
+               $('#controlDiv').mouseleave( function() {
+                    $('#controlsIcons').find("[data-input='unselected']").stop(true, true).slideUp('slow');
+               });
+
+
+
+               // input pre-selection
+               $('img.inputIcon').mouseover( function() {
+                    $(this).css('opacity', '1');
+               });
+
+               $('img.inputIcon').mouseout( function() {
+                    if( $(this).attr('data-input') == 'unselected' ){
+                         $(this).css('opacity', '0.4');
+                    }
+               });
+
+
+               // overlay functions
+               function pulse() {
+                    $('#overlay img').animate({width: '170px', height: '170px', margin: '-99px 0 0 -99px'}, "slow");
+                    $('#overlay img').animate({width: '150px', height: '150px', margin: '-89px 0 0 -89px'}, "slow");
+               }
+               var pulseInterval = setInterval(pulse, 2000);
+
+               $(window).load(function() {
+                    $('#overlay').animate({opacity: '0'}, 'slow');
+                    clearInterval(pulseInterval);
+                    setTimeout(function() {$('#overlay').remove()}, 2000);
+               });
+
+
+
+               $(document).ready(function(){
+                    $('#controlsIcons').children().attr('data-input', 'unselected').hide();
+                    $('#controlsIcons').children().first().attr('data-input', 'selected').show();
+               });
+          </script>
+     </body>
+</html>
