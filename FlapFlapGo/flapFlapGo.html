@@ -1,5 +1,5 @@
 <!-- Author: Matteo Rosa (DaiEnkai)
-     Version: 2.3.0
+     Version: 2.3.1
      GitHub account: https://github.com/DaiEnkai -->
 
 
@@ -189,7 +189,7 @@ lifeSound: "jump9" by Damaged Panda (http://opengameart.org/content/100-plus-gam
                var modalsToShow;
                var checkboxesSaved;
                var lives, myLives, extraLifeAppeared, extraLifeSteps = 1, extraLifeStepsCounter;
-               var controlsUsed, deathOnWalls, flameTime, survived, lifeCounter, timeOnWalls, lifeCollected, untouched;
+               var controlsUsed, deathOnWalls, flameTime, survived, lifeCounter, timeOnWalls, withoutLifeCounter, untouchedCounter;
 
                function startGame() {
                     if (firstPlay) {
@@ -241,8 +241,8 @@ lifeSound: "jump9" by Damaged Panda (http://opengameart.org/content/100-plus-gam
                     lives = 3;
                     extraLifeAppeared = false;
                     survived = false;
-                    lifeCollected = false;
-                    untouched = true;
+                    withoutLifeCounter = 0;
+                    untouchedCounter = 0;
                     modalsToShow = [];
 
                     myObstacles = [];
@@ -486,7 +486,7 @@ lifeSound: "jump9" by Damaged Panda (http://opengameart.org/content/100-plus-gam
                     for (var i = 0; i < myObstacles.length; i++) {
                          if (myGamePiece.crashWith(myObstacles[i])) {
                               if (myGamePiece.opacity == 1) {
-                                   untouched = false;
+                                   untouchedCounter = 0;
                                    lives--;
                                    myLives[lives].opacity = 0.4;
                                    myGamePiece.opacity = 0.5;
@@ -541,6 +541,21 @@ lifeSound: "jump9" by Damaged Panda (http://opengameart.org/content/100-plus-gam
                                    menuMusics.push(3); localStorage.setItem('flapFlapGoMenuMusics', JSON.stringify(menuMusics));
                                    var achivementModal7 = new modal(7, 7, 2, 3); modalsToShow.push(achivementModal7);
                               }
+                              withoutLifeCounter++;
+                              if (withoutLifeCounter == 100 && !achivementsObtained[10]) {
+                                        achivementsObtained[10] = true; localStorage.setItem('flapFlapGoAchivements', JSON.stringify(achivementsObtained)); setAchivements(11);
+                                        backgrounds.push(11); localStorage.setItem('flapFlapGoBackgrounds', JSON.stringify(backgrounds));
+                                        bgMusics.push(5); localStorage.setItem('flapFlapGoBgMusics', JSON.stringify(bgMusics));
+                                        var achivementModal11 = new modal(11, 11, 5, null); modalsToShow.push(achivementModal11);
+                              }
+                              untouchedCounter++;
+                              if (untouchedCounter == 100 && !achivementsObtained[11]) {
+                                   achivementsObtained[11] = true; localStorage.setItem('flapFlapGoAchivements', JSON.stringify(achivementsObtained)); setAchivements(12);
+                                   backgrounds.push(12); localStorage.setItem('flapFlapGoBackgrounds', JSON.stringify(backgrounds));
+                                   bgMusics.push(6); localStorage.setItem('flapFlapGoBgMusics', JSON.stringify(bgMusics));
+                                   menuMusics.push(4); localStorage.setItem('flapFlapGoMenuMusics', JSON.stringify(menuMusics));
+                                   var achivementModal12 = new modal(12, 12, 6, 4); modalsToShow.push(achivementModal12);
+                              }
                          }
                     }
 
@@ -581,7 +596,7 @@ lifeSound: "jump9" by Damaged Panda (http://opengameart.org/content/100-plus-gam
                                         var achivementModal8 = new modal(8, 8, 3, null); modalsToShow.push(achivementModal8);
                                    }
 
-                                   lifeCollected = true;
+                                   withoutLifeCounter = 0;
                               }
                          }
                          // the extra life has disappeared
@@ -763,19 +778,6 @@ lifeSound: "jump9" by Damaged Panda (http://opengameart.org/content/100-plus-gam
                                    backgrounds.push(10); localStorage.setItem('flapFlapGoBackgrounds', JSON.stringify(backgrounds));
                                    bgMusics.push(4); localStorage.setItem('flapFlapGoBgMusics', JSON.stringify(bgMusics));
                                    var achivementModal10 = new modal(10, 10, 4, null); modalsToShow.push(achivementModal10);
-                              }
-                              if (!lifeCollected && !achivementsObtained[10]) {
-                                   achivementsObtained[10] = true; localStorage.setItem('flapFlapGoAchivements', JSON.stringify(achivementsObtained)); setAchivements(11);
-                                   backgrounds.push(11); localStorage.setItem('flapFlapGoBackgrounds', JSON.stringify(backgrounds));
-                                   bgMusics.push(5); localStorage.setItem('flapFlapGoBgMusics', JSON.stringify(bgMusics));
-                                   var achivementModal11 = new modal(11, 11, 5, null); modalsToShow.push(achivementModal11);
-                              }
-                              if (untouched && !achivementsObtained[11]) {
-                                   achivementsObtained[11] = true; localStorage.setItem('flapFlapGoAchivements', JSON.stringify(achivementsObtained)); setAchivements(12);
-                                   backgrounds.push(12); localStorage.setItem('flapFlapGoBackgrounds', JSON.stringify(backgrounds));
-                                   bgMusics.push(6); localStorage.setItem('flapFlapGoBgMusics', JSON.stringify(bgMusics));
-                                   menuMusics.push(4); localStorage.setItem('flapFlapGoMenuMusics', JSON.stringify(menuMusics));
-                                   var achivementModal12 = new modal(12, 12, 6, 4); modalsToShow.push(achivementModal12);
                               }
                               break;
                     }
