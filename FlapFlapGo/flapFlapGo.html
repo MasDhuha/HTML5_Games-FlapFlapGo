@@ -589,7 +589,7 @@ lifeSound: "jump9" by Damaged Panda (http://opengameart.org/content/100-plus-gam
                                    myLifeSound.play();
 
                                    lifeCounter++; localStorage.setItem('flapFlapGoLifeCounter', lifeCounter);
-                                   if (lifeCounter == 100) {
+                                   if (lifeCounter == 50) {
                                         achivementsObtained[7] = true; localStorage.setItem('flapFlapGoAchivements', JSON.stringify(achivementsObtained)); setAchivements(8);
                                         backgrounds.push(8); localStorage.setItem('flapFlapGoBackgrounds', JSON.stringify(backgrounds));
                                         bgMusics.push(3); localStorage.setItem('flapFlapGoBgMusics', JSON.stringify(bgMusics));
@@ -717,7 +717,7 @@ lifeSound: "jump9" by Damaged Panda (http://opengameart.org/content/100-plus-gam
                // Achivements
 
                var achivementDescriptions = ['Score 50 points','Complete at least a game using each type of controls','Touch alternately the ceiling and the floor for a total of 50 times in a single game','Die touching the ceiling and the floor','Score 100 points',
-                    'Keep the flame activated for a total of 5 minutes','Survive an obstacle after having nearly touched','Collect a total of 100 lives','Touch the walls for a total of 5 minutes','Score 200 points','Score 100 points without collecting any life','Score 100 points without losing any life'];
+                    'Keep the flame activated for a total of 5 minutes','Survive an obstacle after having nearly touched','Collect a total of 50 lives','Touch the walls for a total of 5 minutes','Score 200 points','Score 100 points without collecting any life','Score 100 points without losing any life'];
 
                function setAchivements(whichAchivement) {
                     // if whichAchivement has a value
