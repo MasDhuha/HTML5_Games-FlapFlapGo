@@ -84,7 +84,7 @@ lifeSound: "jump9" by Damaged Panda (http://opengameart.org/content/100-plus-gam
                     </tr>
                </table>
                <div id="button">
-                    <button title="Accelerate" onmousedown="accelerate(-0.2);" onmouseup="accelerate(0.1);" ontouchstart="accelerate(-0.2);" ontouchend="accelerate(0.1);">
+                    <button title="Accelerate" onmousedown="accelerate(-0.2);" onmouseup="accelerate(0.1);" ontouchstart="accelerate(-0.2, 'touchscreen');" ontouchend="accelerate(0.1, 'touchscreen');">
                          <img id="accelerateButton" src="https://comiczen.erpnext.com/files/button.png" alt="ACCELERATE">
                     </button>
                </div>
@@ -190,6 +190,7 @@ lifeSound: "jump9" by Damaged Panda (http://opengameart.org/content/100-plus-gam
                var checkboxesSaved;
                var lives, myLives, extraLifeAppeared, extraLifeSteps = 1, extraLifeStepsCounter;
                var controlsUsed, deathOnWalls, flameTime, survived, lifeCounter, timeOnWalls, withoutLifeCounter, untouchedCounter;
+               var touchscreen;
 
                function startGame() {
                     if (firstPlay) {
@@ -271,6 +272,7 @@ lifeSound: "jump9" by Damaged Panda (http://opengameart.org/content/100-plus-gam
                     myLifeSound = new sound("https://comiczen.erpnext.com/files/lifeSound.mp3");
                     myHitSound = new sound("https://comiczen.erpnext.com/files/hitSound.mp3");
                     myFlameSound.sound.volume = 0.4;
+                    myFlameSound.sound.setAttribute('loop', '');
                     myAchivementSound.sound.volume = 0.6;
                     myLifeSound.sound.volume = 0.4;
 
@@ -281,6 +283,7 @@ lifeSound: "jump9" by Damaged Panda (http://opengameart.org/content/100-plus-gam
                     canvas : document.createElement("canvas"),
 
                     start : function() {
+                         this.canvas.id = 'myCanvas';
                          this.canvas.width = 480;
                          this.canvas.height = 270;
                          this.context = this.canvas.getContext("2d");
@@ -498,6 +501,7 @@ lifeSound: "jump9" by Damaged Panda (http://opengameart.org/content/100-plus-gam
                                         isGameOver = true;
 
                                         myGamePiece.opacity = 1;
+                                        touchscreen = false;
                                         if (myGamePiece.image) {myGameoverLayer = new component(57.42, 61.82, "https://comiczen.erpnext.com/files/mQbeBrokenLayer.png", myGamePiece.x - 12.478, (myGamePiece.y + myGamePiece.height) - 61.82, "image");}
                                         mySound.play();
                                         myMusic.stop();
@@ -629,8 +633,19 @@ lifeSound: "jump9" by Damaged Panda (http://opengameart.org/content/100-plus-gam
 
                     // keyboard
                     if ($('img.inputIcon[alt="keyboard"]').attr('data-input') == 'selected') {
-                         if (myGameArea.key && myGameArea.key == 32) {accelerate(-0.2);}     //spacebar
+                         if (myGameArea.key && myGameArea.key == 32) {     //spacebar
+                              accelerate(-0.2);
+                              if (started) {increaseFlameTime();}
+                         }
                          else {accelerate(0.1);}
+                    }
+                    // button
+                    if ($('img.inputIcon[alt="button"]').attr('data-input') == 'selected') {
+                         if (started && ($('#button>button:active').length || touchscreen)) {increaseFlameTime();}
+                    }
+                    // touch
+                    if ($('img.inputIcon[alt="touch"]').attr('data-input') == 'selected') {
+                         if (started && touchscreen) {increaseFlameTime();}
                     }
 
 
@@ -681,7 +696,7 @@ lifeSound: "jump9" by Damaged Panda (http://opengameart.org/content/100-plus-gam
                }
 
 
-               function accelerate(n) {
+               function accelerate(n, typeDevice) {
                     if (!isGameOver) {
                          myGamePiece.gravity = n;
 
@@ -689,11 +704,13 @@ lifeSound: "jump9" by Damaged Panda (http://opengameart.org/content/100-plus-gam
                               myDownFlame.opacity = flameOpacity;
                               myFlameSound.play();
 
-                              if (started) {increaseFlameTime();}
+                              if (typeDevice == 'touchscreen') {touchscreen = true;}
                          }
                          else {
                               myDownFlame.opacity = 0;
                               myFlameSound.stop();
+
+                              if (typeDevice == 'touchscreen') {touchscreen = false;}
                          }
                     }
                }
@@ -825,6 +842,9 @@ lifeSound: "jump9" by Damaged Panda (http://opengameart.org/content/100-plus-gam
                }
 
                function increaseFlameTime() {
+                    myDownFlame.opacity = flameOpacity;
+                    myFlameSound.play();
+
                     // add 20 milliseconds
                     flameTime = parseFloat((flameTime + 0.02).toFixed(2)); localStorage.setItem('flapFlapGoFlameTime', flameTime);
                     if (flameTime >= 300 && !achivementsObtained[5]) {
@@ -1011,10 +1031,10 @@ lifeSound: "jump9" by Damaged Panda (http://opengameart.org/content/100-plus-gam
                function touchstartFunction(event) {
                     if (started && !isGameOver) {
                          event.preventDefault();
-                         if (event.targetTouches.length == 1) {accelerate(-0.2);}
+                         if (event.targetTouches.length == 1) {accelerate(-0.2, 'touchscreen');}
                     }
                }
-               function touchendFunction(event) {accelerate(0.1);}
+               function touchendFunction(event) {accelerate(0.1, 'touchscreen');}
           </script>
 
 
